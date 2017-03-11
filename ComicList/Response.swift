@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+
+struct Response {
+    
+    let status: Int
+    let message: String
+    let results: 
+    
+}
