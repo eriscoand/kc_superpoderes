@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Networking
 
 // FIXME: This is a fake implementation
 
@@ -15,11 +16,19 @@ final class SuggestionsViewModel {
 
 	/// The search query
 	let query = Variable("")
+    private let client = WebClient()
 
 	/// The search suggestions
 	private(set) lazy var suggestions: Observable<[String]> = self.query.asObservable()
-		.throttle(0.3, scheduler: MainScheduler.instance)
-		.map {
-			$0.characters.split(separator: " ").map { String($0) }
-		}
+        .filter { $0.characters.count > 2 }
+        .throttle(0.3, scheduler: MainScheduler.instance)
+        .debug()
+        .flatMap { query -> Observable<Response<Volume>> in
+            let resource = Volume.titles(query: query)
+            return self.client.load(resource: resource)
+        }
+        .map { response -> [String] in
+            return response.results.map { $0.title }
+        }
+        .observeOn(MainScheduler.instance)
 }

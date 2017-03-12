@@ -85,7 +85,7 @@ public func unpack<T>(key: String, jsonDictionary: JSONDictionary) throws -> T {
     return value
 }
 
-public func unpack<T: JSONValueDecodable>(keyPath: String, jsonDictionary: JSONDictionary) throws -> T? {
+public func unpack<T: JSONValueDecodable>(keyPath: String, jsonDictionary: JSONDictionary) throws -> T {
     
     guard let raw = (jsonDictionary as NSDictionary).value(forKeyPath: keyPath) else{
         throw JSONError.notFound(keyPath)

@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		let window = UIWindow(frame: UIScreen.main.bounds)
         
-        testResources()
+        //testResources()
         //testJSON()
 
 		coordinator = AppCoordinator(window: window)

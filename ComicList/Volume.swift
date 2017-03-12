@@ -11,7 +11,7 @@ import Networking
 
 struct Volume {
     
-    let id: Int64
+    let id: Int64?
     let title: String
     let coverURL: URL?
     let description: String?
@@ -21,10 +21,10 @@ struct Volume {
 extension Volume: JSONDecodable {
     
     init(jsonDictionary: JSONDictionary) throws {
-        self.id = try unpack(key: "id", jsonDictionary: jsonDictionary) ?? 0
-        self.title = try unpack(key: "name", jsonDictionary: jsonDictionary)
-        self.coverURL = try unpack(keyPath: "image.small_url", jsonDictionary: jsonDictionary)
-        self.description = try unpack(key: "description", jsonDictionary: jsonDictionary)
+        id = try? unpack(key: "id", jsonDictionary: jsonDictionary)
+        title = try unpack(key: "name", jsonDictionary: jsonDictionary)
+        coverURL = try? unpack(keyPath: "image.small_url", jsonDictionary: jsonDictionary)
+        description = try? unpack(key: "description", jsonDictionary: jsonDictionary)
     }
     
 }
