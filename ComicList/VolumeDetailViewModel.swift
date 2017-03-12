@@ -8,7 +8,9 @@
 
 import Foundation
 import RxSwift
-import Networking
+
+import ComicVine
+import Storage
 
 // FIXME: This is a fake implementation
 
@@ -16,26 +18,20 @@ final class VolumeDetailViewModel {
 
 	/// Determines if the volume is saved in the user's comic list
 	var isSaved: Observable<Bool> {
-		return Observable.just(true)
+		return saved.asObservable()
 	}
 
 	/// The volume information
 	private(set) var volume: VolumeViewModel
-    
-    private let client = WebClient()
 
 	/// The volume description
-	private(set) lazy var about: Observable<String?> = self.client
-        .load(resource: Volume.detail(id: self.volume.identifier))
-        .map { $0.results[0].description }
-        .map { description in
-            description?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-        }
-        .startWith(nil)
-        .catchErrorJustReturn("Error!!!")
-        .observeOn(MainScheduler.instance)
-        .shareReplay(1)
-    
+	private(set) lazy var about: Observable<String?> = self.service
+		.description(forVolumeWithIdentifier: self.volume.identifier)
+		.catchErrorJustReturn(nil)
+		.startWith(nil)
+		.observeOn(MainScheduler.instance)
+		.shareReplay(1)
+
 	/// The issues for this volume
 	private(set) var issues: Observable<[IssueViewModel]> = Observable.just([
 		IssueViewModel(title: "Lorem fistrum", coverURL: URL(string: "http://static.comicvine.com/uploads/scale_small/3/38919/1251093-thanos_imperative_1.jpg")),
@@ -47,12 +43,38 @@ final class VolumeDetailViewModel {
 		IssueViewModel(title: "Quietooor diodeno", coverURL: URL(string: "http://static.comicvine.com/uploads/scale_small/3/39027/4609736-4608485-cgxpqgqw0aao_8t+-+copy.jpg"))
 	])
 
+	private let service = Service()
+	private let store: DataStore
+	private let saved: Variable<Bool>
+
 	/// Adds or removes the volume from the user's comic list
-	func addOrRemove(){
-		// TODO: implement
+	func addOrRemove() {
+		do {
+			try store.write { context in
+				if saved.value {
+					try context.delete(Volume.self, withIdentifier: volume.identifier)
+				} else {
+					let volume = Volume(writeContext: context)
+
+					volume.identifier = self.volume.identifier
+					volume.title = self.volume.title
+					volume.coverURL = self.volume.coverURL?.absoluteString
+					volume.publisher = self.volume.publisherName
+
+					volume.insertionDate = NSDate()
+				}
+			}
+
+			saved.value = !saved.value
+		} catch {
+			print(error)
+		}
 	}
 
-	init(volume: VolumeViewModel) {
+	init(volume: VolumeViewModel, store: DataStore) {
 		self.volume = volume
+		self.store = store
+
+		self.saved = Variable(store.contains(Volume.self, withIdentifier: volume.identifier))
 	}
 }

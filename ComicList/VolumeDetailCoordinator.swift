@@ -7,17 +7,19 @@
 //
 
 import UIKit
+import Storage
 
 /// Coordinates the presentation of a volume detail
 final class VolumeDetailCoordinator: Coordinator {
 
-	init(volume: VolumeViewModel, navigationController: UINavigationController) {
+	init(volume: VolumeViewModel, store: DataStore, navigationController: UINavigationController) {
 		self.volume = volume
+		self.store = store
 		self.navigationController = navigationController
 	}
 
 	override func start() {
-		let viewModel = VolumeDetailViewModel(volume: volume)
+		let viewModel = VolumeDetailViewModel(volume: volume, store: store)
 		let viewController = VolumeDetailViewController(viewModel: viewModel)
 
 		viewController.didFinish = { [weak self] in
@@ -35,5 +37,6 @@ final class VolumeDetailCoordinator: Coordinator {
 	// MARK: - Private
 
 	private let volume: VolumeViewModel
+	private let store: DataStore
 	private unowned let navigationController: UINavigationController
 }

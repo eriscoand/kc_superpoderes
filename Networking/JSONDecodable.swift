@@ -2,7 +2,7 @@
 //  JSONDecodable.swift
 //  ComicList
 //
-//  Created by Eric Risco de la Torre on 11/03/2017.
+//  Created by Guille Gonzalez on 09/02/2017.
 //  Copyright © 2017 Guille Gonzalez. All rights reserved.
 //
 
@@ -11,111 +11,72 @@ import Foundation
 public typealias JSONDictionary = [String: Any]
 public typealias JSONArray = [JSONDictionary]
 
+/// JSON decoding error
+///
+/// - invalidData:     The raw data is not JSON
+/// - unsupportedType: The provided type cannot be decoded from JSON
 public enum JSONError: Error {
-    case invalidData
-    case notFound(String)
-    case invalidValue(Any, String)
+	case invalidData
+	case unsupportedType
 }
 
-
+/// Implemented by types that can be decoded from JSON
 public protocol JSONDecodable {
-    init(jsonDictionary: JSONDictionary) throws
+	init(jsonDictionary: JSONDictionary) throws
 }
 
-public protocol JSONValueDecodable {
-    associatedtype Value
-    init?(raw: Value) throws
-}
-
-extension Int64: JSONValueDecodable {
-
-    public init?(raw: Int){
-        self.init(raw)
-    }
-
-}
-
-extension URL: JSONValueDecodable {
-    
-    public init?(raw: String){
-        self.init(string: raw)
-    }
-    
-}
-
-extension JSONValueDecodable where Self: RawRepresentable {
-    
-    public init?(raw: Self.RawValue){
-        self.init(rawValue: raw)
-    }
-    
-}
-
+/// Decodes a JSON dictionary into a value.
+///
+/// - parameter jsonDictionary: A JSON dictionary.
+///
+/// - throws: A `JSONError` value.
+///
+/// - returns: A value decoded from the given JSON dictionary.
 public func decode<T: JSONDecodable>(jsonDictionary: JSONDictionary) throws -> T {
-    return try T(jsonDictionary: jsonDictionary)
+	return try T(jsonDictionary: jsonDictionary)
 }
 
+/// Decodes a JSON array into an array of values.
+///
+/// - parameter jsonArray: A JSON array.
+///
+/// - throws: A `JSONError` value.
+///
+/// - returns: An array of values decoded from the given JSON array.
 public func decode<T: JSONDecodable>(jsonArray: JSONArray) throws -> [T] {
-    return try jsonArray.map { try decode(jsonDictionary: $0) }
+	return try jsonArray.map(T.init(jsonDictionary:))
 }
 
+/// Decodes raw JSON data into a value.
+///
+/// - parameter data: Raw JSON data.
+///
+/// - throws: A `JSONError` value.
+///
+/// - returns: A value decoded from the given raw JSON data.
 public func decode<T: JSONDecodable>(data: Data) throws -> T {
-    
-    let object = try JSONSerialization.jsonObject(with: data, options: [])
-    
-    guard let dict = object as? JSONDictionary else {
-        throw JSONError.invalidData
-    }
-    
-    return try decode(jsonDictionary: dict)
-    
+	guard
+		let object = try? JSONSerialization.jsonObject(with: data, options: []),
+		let dictionary = object as? JSONDictionary else {
+			throw JSONError.invalidData
+	}
+
+	return try decode(jsonDictionary: dictionary)
 }
 
+/// Decodes raw JSON data into an array of values.
+///
+/// - parameter data: Raw JSON data.
+///
+/// - throws: A `JSONError` value.
+///
+/// - returns: An array of values decoded from the given raw JSON data.
+public func decode<T: JSONDecodable>(data: Data) throws -> [T] {
+	guard
+		let object = try? JSONSerialization.jsonObject(with: data, options: []),
+		let array = object as? JSONArray else {
+			throw JSONError.invalidData
+	}
 
-public func unpack<T>(key: String, jsonDictionary: JSONDictionary) throws -> T {
-    
-    guard let raw = jsonDictionary[key] else {
-        throw JSONError.notFound(key)
-    }
-    
-    guard let value = raw as? T else {
-        throw JSONError.invalidValue(raw, key)
-    }
-    
-    return value
+	return try decode(jsonArray: array)
 }
-
-public func unpack<T: JSONValueDecodable>(keyPath: String, jsonDictionary: JSONDictionary) throws -> T {
-    
-    guard let raw = (jsonDictionary as NSDictionary).value(forKeyPath: keyPath) else{
-        throw JSONError.notFound(keyPath)
-    }
-    
-    guard let value = raw as? T.Value else {
-        throw JSONError.invalidValue(raw, keyPath)
-    }
-    
-    guard let decodedValue = try T(raw: value) else {
-        throw JSONError.invalidValue(raw, keyPath)
-    }
-    
-    return decodedValue
-    
-}
-
-public func unpackDictionary<T: JSONDecodable>(key: String, jsonDictionary: JSONDictionary) throws -> T {
-    
-    let rawValue: JSONDictionary = try unpack(key: key, jsonDictionary: jsonDictionary)
-    return try decode(jsonDictionary: rawValue)
-    
-}
-
-
-public func unpackDictionary<T: JSONDecodable>(key: String, jsonDictionary: JSONDictionary) throws -> [T] {
-    
-    let rawValues: JSONArray = try unpack(key: key, jsonDictionary: jsonDictionary)
-    return try decode(jsonArray: rawValues)
-    
-}
-
-

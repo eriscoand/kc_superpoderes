@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Storage
 
 /// Coordinates the presentation of the search UI
 final class SuggestionsCoordinator: Coordinator {
 
+	private let store: DataStore
 	private unowned let navigationItem: UINavigationItem
 	private unowned let navigationController: UINavigationController
 	private var searchController: UISearchController!
 
-	init(navigationItem: UINavigationItem, navigationController: UINavigationController) {
+	init(store: DataStore, navigationItem: UINavigationItem, navigationController: UINavigationController) {
+		self.store = store
 		self.navigationItem = navigationItem
 		self.navigationController = navigationController
 	}
@@ -47,7 +50,7 @@ final class SuggestionsCoordinator: Coordinator {
 	}
 
 	fileprivate func presentSearchResults(for query: String) {
-		let coordinator = SearchResultsCoordinator(query: query, navigationController: navigationController)
+		let coordinator = SearchResultsCoordinator(query: query, store: store, navigationController: navigationController)
 
 		add(child: coordinator)
 		coordinator.start()

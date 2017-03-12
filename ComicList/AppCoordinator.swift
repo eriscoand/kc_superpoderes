@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import Storage
 
 final class AppCoordinator: Coordinator {
 
 	private let window: UIWindow
 	private let navigationController = UINavigationController()
+	private let store = DataStore(name: "My Comics")
 
 	init(window: UIWindow) {
 		self.window = window
@@ -23,7 +25,7 @@ final class AppCoordinator: Coordinator {
 		window.rootViewController = navigationController
 
 		// The volume list is the initial screen
-		let coordinator = VolumeListCoordinator(navigationController: navigationController)
+		let coordinator = VolumeListCoordinator(store: store, navigationController: navigationController)
 
 		add(child: coordinator)
 		coordinator.start()

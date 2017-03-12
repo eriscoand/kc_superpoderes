@@ -8,61 +8,64 @@
 
 import Foundation
 import RxSwift
-import Networking
 
-// FIXME: This is a fake implementation
-
-extension VolumeViewModel {
-    
-    init(volume: Volume){
-        self.identifier = volume.id!
-        self.title = volume.title
-        self.coverURL = volume.coverURL
-        self.publisherName = ""
-    }
-    
-}
+import ComicVine
+import Storage
 
 final class SearchResultsViewModel {
 
 	let query: String
 	var didLoadPage: () -> Void = {}
-    let client = WebClient()
 
 	public var numberOfItems: Int {
-		return items.count
+		return results.count
 	}
 
 	public func item(at position: Int) -> VolumeViewModel {
-		precondition(position < numberOfItems)
-		return items[position]
+		return results.value(at: position)
 	}
 
 	public func load(autoloadNextOn trigger: Observable<Void>) -> Observable<Int> {
-		return doLoad(page: 1, nextPage: trigger)
+		return doLoad(page: 1, autoloadNextOn: trigger)
 	}
 
-	private var items: [VolumeViewModel] = []
+	private let service: Service
+	private let store: DataStore
+	private let results: FetchedResults<VolumeViewModel>
 
 	init(query: String) {
 		self.query = query
+
+		service = Service()
+		store = DataStore.temporary()
+		results = try! store.fetchedResults(VolumeViewModel.self, matching: .all)
+
+		results.didChangeContent = { [weak self] in
+			self?.didLoadPage()
+		}
 	}
 
-	private func doLoad(page current: Int, nextPage trigger: Observable<Void>) -> Observable<Int> {
-        let resources = Volume.search(query: self.query, page: current)
-        return client.load(resource: resources)
-            .map { response in
-                return response.results.map (VolumeViewModel.init(volume:))
-            }
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { viewModels in
-                self.items.append(contentsOf: viewModels)
-                self.didLoadPage()
-            })
-            .flatMap { _ -> Observable<Int> in
-                return Observable.concat([Observable.just(current),
-                                          Observable.never().takeUntil(trigger),
-                                          self.doLoad(page: current + 1, nextPage: trigger)])
-            }
+	private func doLoad(page pageNumber: Int, autoloadNextOn trigger: Observable<Void>) -> Observable<Int> {
+		let store = self.store
+		let resource = Volume.search(withQuery: query, page: pageNumber)
+
+		return service.results(for: resource)
+			.flatMap { volumes in
+				return store.asyncWrite { context in
+					context.add(volumes)
+				}
+			}
+			.observeOn(MainScheduler.instance)
+			.flatMap { [weak self] () -> Observable<Int> in
+				guard let `self` = self else {
+					return Observable.just(pageNumber)
+				}
+
+				return Observable.concat([
+					Observable.just(pageNumber),
+					Observable.never().takeUntil(trigger),
+					self.doLoad(page: pageNumber + 1, autoloadNextOn: trigger)
+				])
+			}
 	}
 }

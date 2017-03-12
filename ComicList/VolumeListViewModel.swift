@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-// FIXME: This is a fake implementation
+import Storage
 
 /// A view model for the user's comic list.
 final class VolumeListViewModel {
@@ -18,26 +17,20 @@ final class VolumeListViewModel {
 
 	/// The number of volumes in the list
 	var numberOfVolumes: Int {
-		return items.count
+		return results.count
 	}
 
 	/// Returns the volume at a given position
 	func item(at position: Int) -> VolumeViewModel {
-		return items[position]
+		return results.value(at: position)
 	}
 
-	private let items: [VolumeViewModel] = [
-		VolumeViewModel(identifier: 38656,
-						title: "Doctor Strange: The Oath",
-						coverURL: URL(string: "http://comicvine.gamespot.com/api/image/scale_small/1641291-ds__to.jpg"),
-						publisherName: "Marvel"),
-		VolumeViewModel(identifier: 67079,
-						title: "Age Of Ultron",
-						coverURL: URL(string: "http://comicvine.gamespot.com/api/image/scale_small/3816330-01.jpg"),
-						publisherName: "Marvel"),
-		VolumeViewModel(identifier: 39255,
-						title: "Thanos Imperative",
-						coverURL: URL(string: "http://comicvine.gamespot.com/api/image/scale_small/1704425-the_thanos_imperative_hc.jpg"),
-						publisherName: "Marvel")
-	]
+	private let results: FetchedResults<VolumeViewModel>
+
+	init(store: DataStore) {
+		results = try! store.fetchedResults(VolumeViewModel.self, matching: .all)
+		results.didChangeContent = { [weak self] in
+			self?.didUpdate()
+		}
+	}
 }

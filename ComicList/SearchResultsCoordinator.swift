@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Storage
 
 /// Coordinates the presentation of the search results
 final class SearchResultsCoordinator: Coordinator {
 
 	private let query: String
+	private let store: DataStore
 	private unowned let navigationController: UINavigationController
 
-	init(query: String, navigationController: UINavigationController) {
+	init(query: String, store: DataStore, navigationController: UINavigationController) {
 		self.query = query
+		self.store = store
 		self.navigationController = navigationController
 	}
 
@@ -37,7 +40,7 @@ final class SearchResultsCoordinator: Coordinator {
 	}
 
 	private func presentDetail(for volume: VolumeViewModel) {
-		let coordinator = VolumeDetailCoordinator(volume: volume, navigationController: navigationController)
+		let coordinator = VolumeDetailCoordinator(volume: volume, store: store, navigationController: navigationController)
 		add(child: coordinator)
 
 		coordinator.start()

@@ -7,17 +7,20 @@
 //
 
 import UIKit
+import Storage
 
 /// Coordinates all the navigation originating from the comic list screen
 final class VolumeListCoordinator: Coordinator {
 
-	init(navigationController: UINavigationController) {
+	init(store: DataStore, navigationController: UINavigationController) {
+		self.store = store
 		self.navigationController = navigationController
 	}
 
 	override func start() {
 		let viewController = setupViewController()
 		let suggestionsCoordinator = SuggestionsCoordinator(
+			store: store,
 			navigationItem: viewController.navigationItem,
 			navigationController: navigationController
 		)
@@ -30,10 +33,11 @@ final class VolumeListCoordinator: Coordinator {
 
 	// MARK: - Private
 
+	private let store: DataStore
 	private unowned let navigationController: UINavigationController
 
 	private func setupViewController() -> UIViewController {
-		let viewController = VolumeListViewController(viewModel: VolumeListViewModel())
+		let viewController = VolumeListViewController(viewModel: VolumeListViewModel(store: store))
 
 		viewController.didSelectVolume = { [weak self] volume in
 			self?.presentDetail(for: volume)
@@ -44,7 +48,7 @@ final class VolumeListCoordinator: Coordinator {
 	}
 
 	private func presentDetail(for volume: VolumeViewModel) {
-		let coordinator = VolumeDetailCoordinator(volume: volume, navigationController: navigationController)
+		let coordinator = VolumeDetailCoordinator(volume: volume, store: store, navigationController: navigationController)
 		add(child: coordinator)
 
 		coordinator.start()
