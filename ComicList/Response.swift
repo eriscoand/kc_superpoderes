@@ -7,12 +7,28 @@
 //
 
 import Foundation
+import Networking
 
-
-struct Response {
+struct Response<T: JSONDecodable> {
     
     let status: Int
     let message: String
-    let results: 
+    let results: [T]
+    
+}
+
+extension Response: JSONDecodable {
+    
+    init(jsonDictionary: JSONDictionary) throws {
+        self.status = try unpack(key: "status_code", jsonDictionary: jsonDictionary)
+        self.message = try unpack(key: "message", jsonDictionary: jsonDictionary)
+        
+        if let value: T = try? unpackDictionary(key: "results", jsonDictionary: jsonDictionary){
+            self.results = [value]
+        }else{
+            self.results = try unpackDictionary(key: "results", jsonDictionary: jsonDictionary)
+        }
+        
+    }
     
 }

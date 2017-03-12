@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1245AB692F1A1009CB8C7C8A /* Pods_App_ImageLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64B5ACA11664CAB306003790 /* Pods_App_ImageLoader.framework */; };
 		338999821E745BC100C9EE01 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338999811E745BC100C9EE01 /* Response.swift */; };
+		338999841E745EB900C9EE01 /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338999831E745EB900C9EE01 /* Volume.swift */; };
+		338999861E745FEA00C9EE01 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338999851E745FEA00C9EE01 /* JSONDecodable.swift */; };
+		33E3E95A1E7562580052C053 /* Resource+ComicVine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E3E9591E7562580052C053 /* Resource+ComicVine.swift */; };
 		823B965D1E48D51000C19057 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B965C1E48D51000C19057 /* WebClient.swift */; };
 		823B965E1E48D99300C19057 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E2E0FF1E48C43400D5986C /* Networking.framework */; };
 		823B96621E48D9BF00C19057 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B96611E48D9BF00C19057 /* ImageCache.swift */; };
@@ -100,6 +103,9 @@
 		1CEB1E835A57CB79B75A82DF /* Pods-App-ImageLoader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-ImageLoader.release.xcconfig"; path = "Pods/Target Support Files/Pods-App-ImageLoader/Pods-App-ImageLoader.release.xcconfig"; sourceTree = "<group>"; };
 		2636FBF35B323B0DD8EE8A6E /* Pods-App-Networking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Networking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App-Networking/Pods-App-Networking.debug.xcconfig"; sourceTree = "<group>"; };
 		338999811E745BC100C9EE01 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		338999831E745EB900C9EE01 /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
+		338999851E745FEA00C9EE01 /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
+		33E3E9591E7562580052C053 /* Resource+ComicVine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Resource+ComicVine.swift"; sourceTree = "<group>"; };
 		5D2B7D35B7CA654C048282A1 /* Pods_App_ComicList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_ComicList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B5ACA11664CAB306003790 /* Pods_App_ImageLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_ImageLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		823B965C1E48D51000C19057 /* WebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
@@ -195,15 +201,18 @@
 		3389997F1E745B8A00C9EE01 /* ComicVine */ = {
 			isa = PBXGroup;
 			children = (
+				33E3E9591E7562580052C053 /* Resource+ComicVine.swift */,
 				338999801E745BB300C9EE01 /* Models */,
 			);
 			name = ComicVine;
+			path = ComicList;
 			sourceTree = "<group>";
 		};
 		338999801E745BB300C9EE01 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				338999811E745BC100C9EE01 /* Response.swift */,
+				338999831E745EB900C9EE01 /* Volume.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -245,6 +254,7 @@
 			children = (
 				82E2E11D1E48C7DF00D5986C /* Resource.swift */,
 				823B965C1E48D51000C19057 /* WebClient.swift */,
+				338999851E745FEA00C9EE01 /* JSONDecodable.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -434,6 +444,7 @@
 		82E2E0DB1E48C20800D5986C = {
 			isa = PBXGroup;
 			children = (
+				3389997F1E745B8A00C9EE01 /* ComicVine */,
 				82E2E0E61E48C20800D5986C /* ComicList */,
 				82E2E1121E48C44C00D5986C /* ImageLoader */,
 				82E2E1001E48C43400D5986C /* Networking */,
@@ -456,7 +467,6 @@
 		82E2E0E61E48C20800D5986C /* ComicList */ = {
 			isa = PBXGroup;
 			children = (
-				3389997F1E745B8A00C9EE01 /* ComicVine */,
 				827872ED1E4B859000E80204 /* Search */,
 				82A65E931E4A2E52008C4332 /* Volume Detail */,
 				82A65E7B1E4A20B0008C4332 /* Volume List */,
@@ -582,7 +592,7 @@
 				TargetAttributes = {
 					82E2E0E31E48C20800D5986C = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = T5TF72MCE6;
+						DevelopmentTeam = 42UB6JE5FK;
 						ProvisioningStyle = Automatic;
 					};
 					82E2E0FE1E48C43400D5986C = {
@@ -791,8 +801,10 @@
 				823B96801E48E4C000C19057 /* Asset.swift in Sources */,
 				82A65E811E4A226D008C4332 /* VolumeListCoordinator.swift in Sources */,
 				823B96781E48E02400C19057 /* CoverView.swift in Sources */,
+				33E3E95A1E7562580052C053 /* Resource+ComicVine.swift in Sources */,
 				82A7505F1E4C8DE000B13C0B /* SearchResultsViewController.swift in Sources */,
 				823B96811E48E4C000C19057 /* Color.swift in Sources */,
+				338999841E745EB900C9EE01 /* Volume.swift in Sources */,
 				82A750591E4C8BE500B13C0B /* SearchResultsViewModel.swift in Sources */,
 				82E2E0E81E48C20800D5986C /* AppDelegate.swift in Sources */,
 				82A65E851E4A2449008C4332 /* VolumeViewModel.swift in Sources */,
@@ -818,6 +830,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				338999861E745FEA00C9EE01 /* JSONDecodable.swift in Sources */,
 				82E2E11E1E48C7DF00D5986C /* Resource.swift in Sources */,
 				823B965D1E48D51000C19057 /* WebClient.swift in Sources */,
 			);
@@ -957,7 +970,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T5TF72MCE6;
+				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = ComicList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.ComicList;
@@ -972,7 +985,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T5TF72MCE6;
+				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = ComicList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.ComicList;
