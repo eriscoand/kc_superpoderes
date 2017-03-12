@@ -16,4 +16,5 @@ public struct Volume {
 	public let coverURL: URL?
 	public let publisherName: String?
 	public let description: String?
+    
 }

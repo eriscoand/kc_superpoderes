@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		326865940D2AC4E890E8500E /* Pods_App_ComicVine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3ABEB7FAF4DB5F8C9766E62 /* Pods_App_ComicVine.framework */; };
+		3318D0AF1E75D31700B1E484 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3318D0AE1E75D31700B1E484 /* Issue.swift */; };
+		3318D0B11E75D41D00B1E484 /* Issue+JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3318D0B01E75D41D00B1E484 /* Issue+JSONDecodable.swift */; };
+		3318D0B51E75D86200B1E484 /* Issue+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3318D0B41E75D86200B1E484 /* Issue+API.swift */; };
 		737A3337E46DCDD8DBA2B763 /* Pods_App_ImageLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018B0CCD2F576BE82CC64021 /* Pods_App_ImageLoader.framework */; };
 		823B965D1E48D51000C19057 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823B965C1E48D51000C19057 /* WebClient.swift */; };
 		823B965E1E48D99300C19057 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E2E0FF1E48C43400D5986C /* Networking.framework */; };
@@ -88,7 +91,7 @@
 		82EF815C1E50D01B00F46D0D /* Volume+ManagedObjectEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EF815B1E50D01B00F46D0D /* Volume+ManagedObjectEncodable.swift */; };
 		82F6B3EC1E51FA3D004374EE /* ManagedObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F6B3EB1E51FA3D004374EE /* ManagedObjectType.swift */; };
 		82F6B3EE1E51FACC004374EE /* Volume+ManagedObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F6B3ED1E51FACC004374EE /* Volume+ManagedObjectType.swift */; };
-		82F6B3F01E52065F004374EE /* Service+VolumeDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F6B3EF1E52065F004374EE /* Service+VolumeDescription.swift */; };
+		82F6B3F01E52065F004374EE /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F6B3EF1E52065F004374EE /* Service.swift */; };
 		91F93D20E0ED9F1801892912 /* Pods_App_ComicList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 819F91C427EA0EC47CC2E72B /* Pods_App_ComicList.framework */; };
 		98EFA68F9AD7A3C40560E5BF /* Pods_App_Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80181558297342A72D21AF83 /* Pods_App_Networking.framework */; };
 		E9ADF422ABF735AE8EB24A1C /* Pods_App_Storage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA340DCBD76B3D79232E7712 /* Pods_App_Storage.framework */; };
@@ -145,6 +148,9 @@
 /* Begin PBXFileReference section */
 		018B0CCD2F576BE82CC64021 /* Pods_App_ImageLoader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App_ImageLoader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B2258468776C74A81627C6 /* Pods-App-ImageLoader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-ImageLoader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App-ImageLoader/Pods-App-ImageLoader.debug.xcconfig"; sourceTree = "<group>"; };
+		3318D0AE1E75D31700B1E484 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		3318D0B01E75D41D00B1E484 /* Issue+JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Issue+JSONDecodable.swift"; sourceTree = "<group>"; };
+		3318D0B41E75D86200B1E484 /* Issue+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Issue+API.swift"; sourceTree = "<group>"; };
 		60C3319AC50B16C5B6EF0CC9 /* Pods-App-ComicVine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-ComicVine.release.xcconfig"; path = "Pods/Target Support Files/Pods-App-ComicVine/Pods-App-ComicVine.release.xcconfig"; sourceTree = "<group>"; };
 		6240CF8A4D2ED842732007C2 /* Pods-App-ComicList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-ComicList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App-ComicList/Pods-App-ComicList.debug.xcconfig"; sourceTree = "<group>"; };
 		67BD95E1FABEB7B8D924F8C1 /* Pods-App-Storage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Storage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App-Storage/Pods-App-Storage.debug.xcconfig"; sourceTree = "<group>"; };
@@ -231,7 +237,7 @@
 		82EF815B1E50D01B00F46D0D /* Volume+ManagedObjectEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Volume+ManagedObjectEncodable.swift"; sourceTree = "<group>"; };
 		82F6B3EB1E51FA3D004374EE /* ManagedObjectType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectType.swift; sourceTree = "<group>"; };
 		82F6B3ED1E51FACC004374EE /* Volume+ManagedObjectType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Volume+ManagedObjectType.swift"; sourceTree = "<group>"; };
-		82F6B3EF1E52065F004374EE /* Service+VolumeDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Service+VolumeDescription.swift"; sourceTree = "<group>"; };
+		82F6B3EF1E52065F004374EE /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		930BDED3664C284B7974680F /* Pods-App-ImageLoader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-ImageLoader.release.xcconfig"; path = "Pods/Target Support Files/Pods-App-ImageLoader/Pods-App-ImageLoader.release.xcconfig"; sourceTree = "<group>"; };
 		94424535DAF3F7F588D67EA7 /* Pods-App-Networking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-Networking.release.xcconfig"; path = "Pods/Target Support Files/Pods-App-Networking/Pods-App-Networking.release.xcconfig"; sourceTree = "<group>"; };
 		B286BF979DCBE00B1F4608BD /* Pods-App-ComicVine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App-ComicVine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App-ComicVine/Pods-App-ComicVine.debug.xcconfig"; sourceTree = "<group>"; };
@@ -292,6 +298,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3318D0AC1E75D2EE00B1E484 /* Volume */ = {
+			isa = PBXGroup;
+			children = (
+				829495CD1E4CC484006741C2 /* Volume.swift */,
+				829495CF1E4CC4CB006741C2 /* Volume+JSONDecodable.swift */,
+				829495D11E4CC5B8006741C2 /* Volume+API.swift */,
+			);
+			name = Volume;
+			sourceTree = "<group>";
+		};
+		3318D0AD1E75D2FF00B1E484 /* Issue */ = {
+			isa = PBXGroup;
+			children = (
+				3318D0AE1E75D31700B1E484 /* Issue.swift */,
+				3318D0B01E75D41D00B1E484 /* Issue+JSONDecodable.swift */,
+				3318D0B41E75D86200B1E484 /* Issue+API.swift */,
+			);
+			name = Issue;
+			sourceTree = "<group>";
+		};
 		44C1E64845E1629518BDF708 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,9 +499,8 @@
 			children = (
 				829495C71E4CBE10006741C2 /* Response.swift */,
 				829495CB1E4CC2AF006741C2 /* Configuration.swift */,
-				829495CD1E4CC484006741C2 /* Volume.swift */,
-				829495CF1E4CC4CB006741C2 /* Volume+JSONDecodable.swift */,
-				829495D11E4CC5B8006741C2 /* Volume+API.swift */,
+				3318D0AC1E75D2EE00B1E484 /* Volume */,
+				3318D0AD1E75D2FF00B1E484 /* Issue */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -542,7 +567,7 @@
 			children = (
 				82A65E971E4A2E94008C4332 /* IssueViewModel.swift */,
 				82A65E991E4A2EDD008C4332 /* VolumeDetailViewModel.swift */,
-				82F6B3EF1E52065F004374EE /* Service+VolumeDescription.swift */,
+				82F6B3EF1E52065F004374EE /* Service.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -837,7 +862,7 @@
 					};
 					82E2E0E31E48C20800D5986C = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = T5TF72MCE6;
+						DevelopmentTeam = 42UB6JE5FK;
 						ProvisioningStyle = Automatic;
 					};
 					82E2E0FE1E48C43400D5986C = {
@@ -1115,13 +1140,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3318D0B51E75D86200B1E484 /* Issue+API.swift in Sources */,
 				829495CC1E4CC2AF006741C2 /* Configuration.swift in Sources */,
 				829495D61E4CC7E6006741C2 /* Service.swift in Sources */,
 				829495D21E4CC5B8006741C2 /* Volume+API.swift in Sources */,
 				829495D01E4CC4CB006741C2 /* Volume+JSONDecodable.swift in Sources */,
 				829495C81E4CBE10006741C2 /* Response.swift in Sources */,
+				3318D0B11E75D41D00B1E484 /* Issue+JSONDecodable.swift in Sources */,
 				829495CE1E4CC484006741C2 /* Volume.swift in Sources */,
 				829495D41E4CC602006741C2 /* Resource+ComicVine.swift in Sources */,
+				3318D0AF1E75D31700B1E484 /* Issue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,7 +1187,7 @@
 				82A65EA01E4A3165008C4332 /* VolumeAboutView.swift in Sources */,
 				823B96741E48DF8B00C19057 /* UIColor+Darkening.swift in Sources */,
 				82A65E9A1E4A2EDD008C4332 /* VolumeDetailViewModel.swift in Sources */,
-				82F6B3F01E52065F004374EE /* Service+VolumeDescription.swift in Sources */,
+				82F6B3F01E52065F004374EE /* Service.swift in Sources */,
 				82A65E9C1E4A30D5008C4332 /* Button.swift in Sources */,
 				823B96721E48DF2A00C19057 /* UICollectionView+Reusable.swift in Sources */,
 				82A65E871E4A24DD008C4332 /* VolumeListViewModel.swift in Sources */,
@@ -1390,7 +1418,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T5TF72MCE6;
+				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = ComicList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.ComicList;
@@ -1405,7 +1433,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T5TF72MCE6;
+				DEVELOPMENT_TEAM = 42UB6JE5FK;
 				INFOPLIST_FILE = ComicList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gonzalezreal.ComicList;

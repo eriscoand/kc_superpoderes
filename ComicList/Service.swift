@@ -28,4 +28,16 @@ extension Service {
 				)
 			}
 	}
+    
+    func issues(forVolumeWithIdentifier identifier: Int64, page: Int = 0) -> Observable<[IssueViewModel]> {
+        return results(for: Issue.issues(fromVolume: identifier))
+            .map { issues in
+                return issues
+                    .map { issue in
+                        let issueView = IssueViewModel(title: issue.volume.title, coverURL: issue.volume.coverURL)
+                        return issueView
+                    }
+            }
+                
+    }
 }

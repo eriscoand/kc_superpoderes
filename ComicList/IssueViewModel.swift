@@ -16,4 +16,5 @@ struct IssueViewModel {
 
 	/// Cover image URL
 	let coverURL: URL?
+    
 }
