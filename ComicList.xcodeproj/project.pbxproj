@@ -339,8 +339,8 @@
 			children = (
 				82A7505A1E4C8CD800B13C0B /* SearchResultCell.swift */,
 				82A7505B1E4C8CD800B13C0B /* SearchResultCell.xib */,
-				82A7505E1E4C8DE000B13C0B /* SearchResultsViewController.swift */,
 				827872F21E4B874C00E80204 /* SuggestionsViewController.swift */,
+				82A7505E1E4C8DE000B13C0B /* SearchResultsViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";

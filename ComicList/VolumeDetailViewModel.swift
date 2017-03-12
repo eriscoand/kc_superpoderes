@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Networking
 
 // FIXME: This is a fake implementation
 
@@ -20,12 +21,21 @@ final class VolumeDetailViewModel {
 
 	/// The volume information
 	private(set) var volume: VolumeViewModel
+    
+    private let client = WebClient()
 
 	/// The volume description
-	private(set) lazy var about: Observable<String?> = Observable.just(
-		"Quietooor quietooor ese hombree de la pradera. Caballo blanco caballo negroorl ese que llega apetecan ese pedazo de te voy a borrar el cerito a wan. Ahorarr tiene musho peligro a gramenawer te va a hasé pupitaa."
-	)
-
+	private(set) lazy var about: Observable<String?> = self.client
+        .load(resource: Volume.detail(id: self.volume.identifier))
+        .map { $0.results[0].description }
+        .map { description in
+            description?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        }
+        .startWith(nil)
+        .catchErrorJustReturn("Error!!!")
+        .observeOn(MainScheduler.instance)
+        .shareReplay(1)
+    
 	/// The issues for this volume
 	private(set) var issues: Observable<[IssueViewModel]> = Observable.just([
 		IssueViewModel(title: "Lorem fistrum", coverURL: URL(string: "http://static.comicvine.com/uploads/scale_small/3/38919/1251093-thanos_imperative_1.jpg")),

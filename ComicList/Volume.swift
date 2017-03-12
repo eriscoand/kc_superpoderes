@@ -45,4 +45,28 @@ extension Volume {
         )
     }
     
+    public static func search(query: String, page: Int) -> Resource<Response<Volume>> {
+        return Resource.init(path:"search",
+                             parameters: [
+                                "api_key": apiKey,
+                                "format": "json",
+                                "field_list": "id,name,image",
+                                "limit": "20",
+                                "page": String(page),
+                                "query": query,
+                                "resources": "volume"
+            ]
+        )
+    }
+    
+    public static func detail(id: Int64) -> Resource<Response<Volume>> {
+        return Resource.init(path:"volume/4050-\(id)",
+                             parameters: [
+                                "api_key": apiKey,
+                                "format": "json",
+                                "field_list": "name,description"
+            ]
+        )
+    }
+    
 }
