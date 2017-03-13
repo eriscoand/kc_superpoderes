@@ -1,7 +1,5 @@
 # Práctica iOS Superpoderes KeepCoding - ComicList
 
-![alt tag](http://www.thedroidsonroids.com/wp-content/uploads/2016/02/Rx_Logo_M-390x390.png?x33266)
-
 - Arquitectura MVVM
 - RxSwift
 - Consumo de Web Services
@@ -21,3 +19,5 @@ Versión para realizar la práctica con la práctica resuelta
 
 - Incluye Coredata
 - NO INCLUYE TODOS LOS METODOS GENERICOS DE PARSEO DE JSON
+
+![alt tag](https://cdn-images-1.medium.com/max/2000/1*iVjIzql9k7PpwEUdb0phwQ.png)
