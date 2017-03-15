@@ -6,14 +6,14 @@
 - Multithreaded Core Data
 - Mapeo JSON a Modelo
 
-##ComicList-0.1
+## ComicList-0.1
 
 Versión realizada durante el curso presencial de Keepcoding con la práctica resuelta
 
 - NO INCLUYE COREDATA.
 - Incluye le metodos genericos de parseo de JSON
 
-##ComicList-0.6
+## ComicList-0.6
 
 Versión para realizar la práctica con la práctica resuelta
 
